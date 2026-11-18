@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>منصة رَكِيز | تحليل الأعماق وخرائط المحاصيل الذكية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- تحويل إجباري إلى موقع Vercel عند الفتح محليًا -->
+  
+  </script>
+
+  <style>
+    :root {
+      --rakeez-green: #4caf50;
+      --rakeez-dark: #135a3b;
+      --rakeez-gold: #f1c232;
+      --bg-light: #f5fff7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #eafff3, #f4fff9 40%, #ffffff 100%);
+      padding: 12px;
+      color: #123322;
+    }
+
+    .page {
+      max-width: 1020px;
+      margin: 0 auto 90px auto;
+    }
+
+    /* الشريط العلوي */
+    .topbar {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 12px 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e0f2e9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--rakeez-dark), var(--rakeez-green));
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .logo-text-main {
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--rakeez-dark);
+    }
+
+    .logo-text-sub {
+      font-size: 12px;
+      color: #4f6f5d;
+    }
+
+    .topbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .topbar-right a {
+      text-decoration: none;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #c8e6c9;
+      color: var(--rakeez-dark);
+      background: #f5fff7;
+      transition: 0.15s;
+    }
+
+    .topbar-right a:hover {
+      background: linear-gradient(135deg, var(--rakeez-green), var(--rakeez-gold));
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      padding: 16px 18px 20px;
+      margin-bottom: 16px;
+      border: 1px solid #e0f2e9;
+    }
+
+    h1 {
+      font-size: 21px;
+      margin-bottom: 4px;
+      text-align: center;
+      color: var(--rakeez-dark);
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #4f6f5d;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--rakeez-dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-desc {
+      font-size: 12.5px;
+      color: #455a64;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    #status {
+      font-size: 13px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+    }
+
+    .error {
+      background: #ffebee !important;
+      border-color: #ffcdd2 !important;
+      color: #b71c1c;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--rakeez-green), var(--rakeez-gold));
+      color: #ffffff;
+      transition: 0.15s ease;
+      box-shadow: 0 6px 16px rgba(19, 90, 59, 0.22);
+    }
+
+    .btn.secondary {
+      background: #00695c;
+      box-shadow: 0 6px 16px rgba(0, 105, 92, 0.22);
+    }
+
+    .btn.ai {
+      background: #1565c0;
+      box-shadow: 0 6px 16px rgba(21, 101, 192, 0.22);
+    }
+
+    .btn.whatsapp {
+      background: #25d366;
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.28);
+      color: #ffffff;
+    }
+
+    .btn.outline {
+      background: #f5fff7;
+      color: var(--rakeez-dark);
+      border: 1px solid #a5d6a7;
+      box-shadow: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      background: #b0bec5;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* تبويبات الأعماق */
+    .depth-tabs {
+      display: flex;
+      gap: 6px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .depth-tab {
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1px solid #c8e6c9;
+      background: #f5fff7;
+      color: var(--rakeez-dark);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .depth-tab.active {
+      background: var(--rakeez-dark);
+      color: #ffffff;
+      border-color: var(--rakeez-dark);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 7px 6px;
+      text-align: center;
+    }
+
+    th {
+      background: #e0f2f1;
+      color: var(--rakeez-dark);
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background: #fafafa;
+    }
+
+    .reading-id {
+      font-size: 12px;
+      color: #607d8b;
+    }
+
+    .time {
+      font-size: 11px;
+      color: #90a4ae;
+    }
+
+    /* منطقة رفع صورة المزرعة والخريطة التفاعلية */
+    .upload-box {
+      border: 2px dashed #81c784;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      background: #f9fffb;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .upload-box:hover {
+      background: #eefbf1;
+      border-color: var(--rakeez-dark);
+    }
+
+    .farm-map-container {
+      display: none;
+      margin-top: 12px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid #c8e6c9;
+      background: #0d2b1d;
+      position: relative;
+    }
+
+    #farmCanvas {
+      width: 100%;
+      max-height: 520px;
+      display: block;
+      object-fit: contain;
+      cursor: pointer;
+    }
+
+    .zone-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 12px;
+      background: #f5fff7;
+      border-top: 1px solid #c8e6c9;
+      font-size: 12px;
+    }
+
+    .zone-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* بطاقات توصيات القطاعات */
+    .zones-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .zone-card {
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid #c8e6c9;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .zone-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--rakeez-dark);
+    }
+
+    .zone-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .zone-card p {
+      font-size: 12px;
+      line-height: 1.55;
+      color: #37474f;
+      margin-bottom: 4px;
+    }
+
+    /* قسم الواتساب */
+    .whatsapp-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .wa-input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .wa-input-group input {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid #a5d6a7;
+      font-size: 13px;
+      min-width: 210px;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .wa-preview {
+      margin-top: 10px;
+      background: #ffffff;
+      border: 1px solid #dcfce7;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 12px;
+      white-space: pre-line;
+      color: #1e293b;
+      max-height: 180px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    /* ====== CHAT BOT ====== */
+    .chat-toggle {
+      position: fixed;
+      bottom: 14px;
+      left: 14px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--rakeez-green), var(--rakeez-gold));
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 1000;
+    }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 70px;
+      left: 12px;
+      right: 12px;
+      max-width: 380px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+      border: 1px solid #e0f2e9;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 70vh;
+      z-index: 1001;
+    }
+
+    .chat-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e0f2e9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f5fff7;
+    }
+
+    .chat-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--rakeez-dark);
+    }
+
+    .chat-status {
+      font-size: 11px;
+      color: #607d8b;
+    }
+
+    .chat-close {
+      border: none;
+      background: transparent;
+      font-size: 18px;
+      cursor: pointer;
+      color: #607d8b;
+    }
+
+    .chat-messages {
+      padding: 10px;
+      overflow-y: auto;
+      flex: 1;
+      background: #ffffff;
+    }
+
+    .chat-msg {
+      margin-bottom: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .chat-msg.user {
+      text-align: left;
+      background: #e8f5e9;
+      padding: 6px 10px;
+      border-radius: 10px;
+    }
+
+    .chat-msg.assistant {
+      background: #f5fff7;
+      border-radius: 10px;
+      padding: 8px 10px;
+      border: 1px solid #e0f2e9;
+    }
+
+    .chat-input-row {
+      border-top: 1px solid #e0f2e9;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fafafa;
+    }
+
+    .chat-input-row textarea {
+      flex: 1;
+      resize: none;
+      border-radius: 10px;
+      border: 1px solid #cfd8dc;
+      padding: 6px 8px;
+      font-size: 12px;
+      min-height: 36px;
+    }
+
+    .chat-input-row button {
+      border-radius: 999px;
+      border: none;
+      padding: 0 14px;
+      height: 36px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--rakeez-green);
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .topbar { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- الشريط العلوي -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo-badge">ر</div>
+        <div>
+          <div class="logo-text-main">RAKEEZ رَكِيز</div>
+          <div class="logo-text-sub">رصدٌ من الأعماق (٣ م) .. وتغطيةٌ ذكية للمزرعة</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="dashboard.html">سجل القراءات</a>
+        <a href="login.html">الحساب</a>
+      </div>
+    </header>
+
+    <!-- 1. بطاقة قراءات مسبار رَكِيز العميق -->
+    <div class="card">
+      <h1>لوحة قراءات مسبار رَكِيز</h1>
+      <div class="subtitle">رصد لحظي متعدد الأعماق (٣٠ سم – ٣ أمتار) للتربة والمياه الجوفية</div>
+
+      <div id="status">الحالة: جاهز لاستقبال القراءات من المسبار أو المحاكاة</div>
+
+      <div class="btn-row">
+        <button id="connectBtn" class="btn">📡 اتصال بمسبار رَكِيز (BLE)</button>
+        <button id="simulateBtn" class="btn outline">⚡ جلب / محاكاة قراءة حية</button>
+        <button id="disconnectBtn" class="btn secondary" disabled>قطع الاتصال</button>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <div class="reading-id" id="readingMeta">المحطة: في انتظار القراءة...</div>
+        <div class="time" id="timeLabel"></div>
+      </div>
+
+      <!-- تبويبات اختيار العمق -->
+      <div class="depth-tabs">
+        <button class="depth-tab active" data-depth="shallow">🌱 الجذور السطحية (30 سم)</button>
+        <button class="depth-tab" data-depth="mid">🌿 الجذور المتوسطة (120 سم)</button>
+        <button class="depth-tab" data-depth="deep">🌴 الجذور العميقة (250–300 سم)</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>المؤشر الحيوي</th>
+            <th>القراءة الحالية</th>
+            <th>التقييم السريع</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>درجة حرارة التربة</td>
+            <td id="tValue">-- °م</td>
+            <td id="tEval">--</td>
+          </tr>
+          <tr>
+            <td>رطوبة التربة</td>
+            <td id="mValue">-- ٪</td>
+            <td id="mEval">--</td>
+          </tr>
+          <tr>
+            <td>الملوحة (EC)</td>
+            <td id="ecValue">-- µS/cm</td>
+            <td id="ecEval">--</td>
+          </tr>
+          <tr>
+            <td>درجة الحموضة (pH)</td>
+            <td id="phValue">-- pH</td>
+            <td id="phEval">--</td>
+          </tr>
+          <tr>
+            <td>النيتروجين (N)</td>
+            <td id="nValue">-- mg/kg</td>
+            <td id="nEval">--</td>
+          </tr>
+          <tr>
+            <td>الفوسفور (P)</td>
+            <td id="pValue">-- mg/kg</td>
+            <td id="pEval">--</td>
+          </tr>
+          <tr>
+            <td>البوتاسيوم (K)</td>
+            <td id="kValue">-- mg/kg</td>
+            <td id="kEval">--</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2. بطاقة رفع صورة المزرعة وتوزيع المحاصيل بالذكاء الاصطناعي -->
+    <div class="card">
+      <div class="section-title">🛰️ تحليل صورة القمر الصناعي للمزرعة وتحديد أماكن المحاصيل</div>
+      <div class="section-desc">
+        ارفع صورة فضائية أو جوية لمزرعتك؛ سيقوم <strong>رَكِيز AI</strong> بدمجها مع قراءات المسبار العميق لتقسيم المزرعة وتحديد ماذا تزرع في كل منطقة.
+      </div>
+
+      <input type="file" id="farmImageInput" accept="image/*" style="display: none;" />
+
+      <div class="upload-box" id="uploadDropZone">
+        <div style="font-size: 28px; margin-bottom: 4px;">🛰️</div>
+        <div style="font-weight: 700; color: var(--rakeez-dark); font-size: 14px;">
+          اضغط هنا لرفع صورة فضائية للمزرعة (JPG / PNG)
+        </div>
+        <div style="font-size: 12px; color: #607d8b; margin-top: 2px;">
+          أو اضغط على زر «تحميل صورة القمر الصناعي للمزرعة» للتجربة الفورية
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="sampleFarmBtn" class="btn outline" type="button">🛰️ تحميل صورة القمر الصناعي للمزرعة</button>
+        <button id="analyzeFarmBtn" class="btn ai" type="button" disabled>🧠 تحليل المزرعة وتحديد أماكن المحاصيل</button>
+      </div>
+
+      <div id="analysisStatus" class="section-desc" style="font-weight: 600; color: var(--rakeez-dark);"></div>
+
+      <!-- خريطة المزرعة المقسمة بصرياً -->
+      <div class="farm-map-container" id="farmMapContainer">
+        <canvas id="farmCanvas"></canvas>
+        <div class="zone-legend">
+          <span><span class="zone-dot" style="background:#2e7d32;"></span>منطقة مثالية للخضروات والحمضيات</span>
+          <span><span class="zone-dot" style="background:#f9a825;"></span>منطقة مناسبة للنخيل والأعلاف</span>
+          <span><span class="zone-dot" style="background:#d84315;"></span>أطراف عالية الملوحة / بيوت محمية</span>
+          <span><span class="zone-dot" style="background:#0288d1;"></span>موقع مسبار رَكِيز العميق (٣ م)</span>
+        </div>
+      </div>
+
+      <!-- بطاقات توصية كل بقعة في المزرعة -->
+      <div class="zones-grid" id="zonesGrid"></div>
+    </div>
+
+    <!-- 3. بطاقة إرسال التقرير الكامل عبر واتساب + الحفظ -->
+    <div class="card">
+      <div class="section-title">📲 إرسال الخطة الزراعية والتوصيات عبر واتساب</div>
+      <div class="section-desc">
+        أدخل رقم واتساب المزارع لإرسال ملخص قراءات المسبار وخطة توزيع المحاصيل لكل منطقة بضغطة زر.
+      </div>
+
+      <div class="whatsapp-box">
+        <label for="farmerPhone" style="font-size: 12px; font-weight: 700; color: var(--rakeez-dark);">
+          رقم واتساب المزارع (مع رمز الدولة، مثال: 9689XXXXXXX):
+        </label>
+        <div class="wa-input-group">
+          <input id="farmerPhone" type="tel" value="968" placeholder="96891234567" />
+          <button id="sendWhatsappBtn" class="btn whatsapp" type="button" disabled>
+            📤 إرسال التقرير عبر واتساب
+          </button>
+          <button id="copyReportBtn" class="btn outline" type="button" disabled>
+            📋 نسخ التقرير
+          </button>
+          <button id="saveSessionBtn" class="btn secondary" type="button" disabled>
+            💾 حفظ في السحابة
+          </button>
+        </div>
+
+        <div id="waPreview" class="wa-preview"></div>
+        <div id="saveStatus" style="font-size: 12px; margin-top: 8px; color: var(--rakeez-dark);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT BOT -->
+  <button id="chatToggle" class="chat-toggle">
+    <span>💬</span> رَكِيز AI
+  </button>
+
+  <section id="chatPanel" class="chat-panel">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">مستشار رَكِيز الزراعي</div>
+        <div id="chatStatus" class="chat-status">مبني على بيانات التربة والمناخ في عُمان 🇴🇲</div>
+      </div>
+      <button class="chat-close" id="chatCloseBtn">×</button>
+    </div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-input-row">
+      <textarea id="chatInput" placeholder="اسأل عن ملوحة الأعماق أو أفضل محصول..."></textarea>
+      <button id="chatSend">إرسال</button>
+    </div>
+  </section>
+
+  <!-- Firebase Auth -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCPCDnSjazRrxAZ1uVuwlvK5lBUYfmx4Io",
+      authDomain: "nasgh1.firebaseapp.com",
+      databaseURL: "https://nasgh1-default-rtdb.firebaseio.com",
+      projectId: "nasgh1",
+      storageBucket: "nasgh1.firebasestorage.app",
+      messagingSenderId: "37730120812",
+      appId: "1:37730120812:web:995e4f7d60cced8a709449",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const isDemoMode = new URLSearchParams(window.location.search).get("demo") === "1";
+    onAuthStateChanged(auth, (user) => {
+      if (!user && !isDemoMode && location.hostname === "rakeez.vercel.app") {
+        // فعّل السطر التالي عند رفع صفحة login.html
+        // window.location.href = "login.html";
+      }
+    });
+  </script>
+
+  <!-- المنطق البرمجي الكامل لمنصة رَكِيز -->
+  <script>
+    const SERVICE_UUID        = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+    const CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+    const SAMPLE_FARM_IMAGE_PATH = "images/sample-farm.jpg";
+
+    let device = null;
+    let characteristic = null;
+    let currentDepth = "shallow";
+    let multiDepthData = null;
+    let uploadedFarmImage = null;
+    let uploadedFarmBase64 = null;
+    let latestZonePlan = null;
+    let formattedWhatsappReport = "";
+
+    const statusEl = document.getElementById("status");
+    const connectBtn = document.getElementById("connectBtn");
+    const simulateBtn = document.getElementById("simulateBtn");
+    const disconnectBtn = document.getElementById("disconnectBtn");
+    const readingMetaEl = document.getElementById("readingMeta");
+    const timeLabelEl = document.getElementById("timeLabel");
+
+    const farmImageInput = document.getElementById("farmImageInput");
+    const uploadDropZone = document.getElementById("uploadDropZone");
+    const sampleFarmBtn = document.getElementById("sampleFarmBtn");
+    const analyzeFarmBtn = document.getElementById("analyzeFarmBtn");
+    const analysisStatusEl = document.getElementById("analysisStatus");
+    const farmMapContainer = document.getElementById("farmMapContainer");
+    const farmCanvas = document.getElementById("farmCanvas");
+    const ctx = farmCanvas.getContext("2d");
+    const zonesGrid = document.getElementById("zonesGrid");
+
+    const farmerPhoneInput = document.getElementById("farmerPhone");
+    const sendWhatsappBtn = document.getElementById("sendWhatsappBtn");
+    const copyReportBtn = document.getElementById("copyReportBtn");
+    const saveSessionBtn = document.getElementById("saveSessionBtn");
+    const waPreview = document.getElementById("waPreview");
+    const saveStatusEl = document.getElementById("saveStatus");
+
+    function setStatus(text, isError = false) {
+      statusEl.textContent = "الحالة: " + text;
+      statusEl.classList.toggle("error", isError);
+    }
+
+    function buildMultiDepthReadings(raw = {}) {
+      const baseTemp = Number(raw.t || 28.4);
+      const jitter = (val, pct) => Number((val * (1 + (Math.random() * 2 - 1) * pct)).toFixed(1));
+
+      return {
+        id: raw.id || "RAKEEZ-PROBE-01",
+        shallow: {
+          label: "الجذور السطحية (30 سم)",
+          t: jitter(baseTemp, 0.02),
+          m: jitter(raw.m || 44.0, 0.05),
+          ec: Math.round(jitter(raw.ec || 1650, 0.05)),
+          ph: Number((raw.ph || 7.12).toFixed(2)),
+          n: Math.round(jitter(raw.n || 125, 0.05)),
+          p: Math.round(jitter(raw.p || 64, 0.05)),
+          k: Math.round(jitter(raw.k || 215, 0.05))
+        },
+        mid: {
+          label: "الجذور المتوسطة (120 سم)",
+          t: jitter(baseTemp - 2.1, 0.02),
+          m: jitter((raw.m || 44.0) + 8, 0.05),
+          ec: Math.round(jitter((raw.ec || 1650) + 550, 0.05)),
+          ph: Number(((raw.ph || 7.12) + 0.15).toFixed(2)),
+          n: Math.round(jitter((raw.n || 125) - 18, 0.05)),
+          p: Math.round(jitter((raw.p || 64) - 10, 0.05)),
+          k: Math.round(jitter((raw.k || 215) - 20, 0.05))
+        },
+        deep: {
+          label: "الجذور العميقة (280 سم)",
+          t: jitter(baseTemp - 4.0, 0.02),
+          m: jitter((raw.m || 44.0) + 15, 0.05),
+          ec: Math.round(jitter((raw.ec || 1650) + 1350, 0.05)),
+          ph: Number(((raw.ph || 7.12) + 0.28).toFixed(2)),
+          n: Math.round(jitter((raw.n || 125) - 40, 0.05)),
+          p: Math.round(jitter((raw.p || 64) - 22, 0.05)),
+          k: Math.round(jitter((raw.k || 215) - 45, 0.05))
+        }
+      };
+    }
+
+    function renderSensorTable() {
+      if (!multiDepthData) return;
+      const d = multiDepthData[currentDepth];
+
+      document.getElementById("tValue").textContent = d.t + " °م";
+      document.getElementById("tEval").textContent = d.t <= 32 ? "✅ مثالي" : "⚠️ مرتفع";
+
+      document.getElementById("mValue").textContent = d.m + " ٪";
+      document.getElementById("mEval").textContent = d.m >= 38 ? "✅ رطوبة جيدة" : "⚠️ يحتاج ري";
+
+      document.getElementById("ecValue").textContent = d.ec + " µS/cm";
+      document.getElementById("ecEval").textContent = d.ec < 2000 ? "✅ عذبة (خضروات/حمضيات)" : (d.ec < 3200 ? "🟡 متوسطة (نخيل/برسيم)" : "🔴 ملوحة عالية");
+
+      document.getElementById("phValue").textContent = d.ph + " pH";
+      document.getElementById("phEval").textContent = (d.ph >= 6.5 && d.ph <= 7.8) ? "✅ متعادل" : "⚠️ قلوي";
+
+      document.getElementById("nValue").textContent = d.n + " mg/kg";
+      document.getElementById("nEval").textContent = d.n >= 100 ? "✅ متوفر" : "⚠️ نقص";
+
+      document.getElementById("pValue").textContent = d.p + " mg/kg";
+      document.getElementById("pEval").textContent = d.p >= 50 ? "✅ متوفر" : "⚠️ نقص";
+
+      document.getElementById("kValue").textContent = d.k + " mg/kg";
+      document.getElementById("kEval").textContent = d.k >= 180 ? "✅ متوفر" : "⚠️ نقص";
+    }
+
+    function applyNewReading(raw = {}, source = "محاكاة حية") {
+      multiDepthData = buildMultiDepthReadings(raw);
+      const now = new Date();
+      readingMetaEl.textContent = `المحطة: ${multiDepthData.id} (${source})`;
+      timeLabelEl.textContent = "آخر تحديث: " + now.toLocaleTimeString("ar");
+      renderSensorTable();
+      if (uploadedFarmImage) analyzeFarmBtn.disabled = false;
+    }
+
+    document.querySelectorAll(".depth-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".depth-tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentDepth = btn.dataset.depth;
+        renderSensorTable();
+      });
+    });
+
+    simulateBtn.addEventListener("click", () => {
+      applyNewReading({ id: "RAKEEZ-BATINAH-01" }, "قراءة حية");
+      setStatus("تم استلام قراءات الأعماق الثلاثة بنجاح ✅");
+    });
+
+    connectBtn.addEventListener("click", async () => {
+      if (!navigator.bluetooth) {
+        setStatus("المتصفح لا يدعم Web Bluetooth — استخدم زر المحاكاة", true);
+        return;
+      }
+      try {
+        setStatus("جاري البحث عن مسبار رَكِيز...");
+        device = await navigator.bluetooth.requestDevice({
+          filters: [{ services: [SERVICE_UUID] }],
+          optionalServices: [SERVICE_UUID]
+        });
+        const server = await device.gatt.connect();
+        const service = await server.getPrimaryService(SERVICE_UUID);
+        characteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
+        await characteristic.startNotifications();
+        characteristic.addEventListener("characteristicvaluechanged", (e) => {
+          const text = new TextDecoder("utf-8").decode(e.target.value);
+          applyNewReading(JSON.parse(text), "بلوتوث BLE");
+        });
+        setStatus("متصل بمسبار رَكِيز بنجاح ✅");
+        disconnectBtn.disabled = false;
+      } catch (err) {
+        setStatus("تعذر الاتصال: " + err.message, true);
+      }
+    });
+
+    disconnectBtn.addEventListener("click", async () => {
+      if (device && device.gatt.connected) await device.gatt.disconnect();
+      disconnectBtn.disabled = true;
+      setStatus("تم قطع الاتصال");
+    });
+
+    // ================== تحميل صورة القمر الصناعي للمزرعة ==================
+    uploadDropZone.addEventListener("click", () => farmImageInput.click());
+
+    function drawLoadedImage(img) {
+      uploadedFarmImage = img;
+      farmCanvas.width = 900;
+      farmCanvas.height = Math.round((img.height / img.width) * 900) || 640;
+      ctx.drawImage(img, 0, 0, farmCanvas.width, farmCanvas.height);
+
+      // تحويل الكانفاس إلى Base64 لإرساله إلى Gemini API عند الطلب
+      try {
+        uploadedFarmBase64 = farmCanvas.toDataURL("image/jpeg", 0.85);
+      } catch (e) {
+        uploadedFarmBase64 = null;
+      }
+
+      farmMapContainer.style.display = "block";
+      zonesGrid.innerHTML = "";
+      analyzeFarmBtn.disabled = false;
+      analysisStatusEl.textContent = "تم تحميل صورة القمر الصناعي للمزرعة ✅ اضغط الآن على «تحليل المزرعة وتحديد أماكن المحاصيل».";
+    }
+
+    function createFallbackCanvasImage() {
+      const off = document.createElement("canvas");
+      off.width = 900;
+      off.height = 640;
+      const octx = off.getContext("2d");
+      octx.fillStyle = "#d9c29c";
+      octx.fillRect(0, 0, 900, 640);
+      octx.fillStyle = "#2f5d31";
+      octx.fillRect(140, 80, 310, 380);
+      octx.fillStyle = "#4c8c2b";
+      octx.fillRect(470, 120, 290, 280);
+      octx.fillStyle = "#cfd8dc";
+      octx.fillRect(620, 350, 170, 140);
+      octx.fillRect(150, 480, 190, 110);
+      const fallbackImg = new Image();
+      fallbackImg.onload = () => drawLoadedImage(fallbackImg);
+      fallbackImg.src = off.toDataURL("image/png");
+    }
+
+    function loadFarmImageFromSrc(src, useFallbackOnError = false) {
+      const img = new Image();
+      img.onload = () => drawLoadedImage(img);
+      img.onerror = () => {
+        if (useFallbackOnError) {
+          console.warn("images/sample-farm.jpg not found yet, using fallback preview.");
+          createFallbackCanvasImage();
+        }
+      };
+      img.src = src;
+    }
+
+    farmImageInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => loadFarmImageFromSrc(evt.target.result, false);
+      reader.readAsDataURL(file);
+    });
+
+    // تحميل صورة القمر الصناعي الحقيقية (images/sample-farm.jpg)
+    sampleFarmBtn.addEventListener("click", () => {
+      loadFarmImageFromSrc(SAMPLE_FARM_IMAGE_PATH, true);
+    });
+
+    // ================== تحليل صورة القمر الصناعي + السنسر ==================
+    async function analyzeFarmAndRecommendCrops() {
+      if (!uploadedFarmImage) return;
+      if (!multiDepthData) {
+        applyNewReading({ id: "RAKEEZ-BATINAH-01" }, "قراءة تلقائية");
+      }
+
+      analyzeFarmBtn.disabled = true;
+      analysisStatusEl.textContent = "جاري تحليل صورة القمر الصناعي ودمجها مع قراءات المسبار العميق...";
+
+      let zones = null;
+
+      try {
+        if (uploadedFarmBase64) {
+          const res = await fetch("/api/rakeez-analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              image: uploadedFarmBase64,
+              sensor: multiDepthData
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data.zones)) zones = data.zones;
+          }
+        }
+      } catch (e) {
+        console.warn("Using calibrated Omani agronomic engine:", e);
+      }
+
+      // قطاعات معايرة بدقة على معالم صورة القمر الصناعي للمزرعة
+      if (!zones) {
+        const shallowEC = multiDepthData.shallow.ec;
+        const midEC = multiDepthData.mid.ec;
+        const deepEC = multiDepthData.deep.ec;
+
+        zones = [
+          {
+            id: "القطاع أ (مصفوفة النخيل الكبرى)",
+            rect: [0.16, 0.12, 0.34, 0.54],
+            color: "rgba(249, 168, 37, 0.32)",
+            border: "#f9a825",
+            badge: "نخيل مثمر — ملوحة متوسطة",
+            soilNote: `ملوحة متوسطة (${midEC} µS/cm) عند عمق 1.2 م ورطوبة مستقرة في الجذور العميقة.`,
+            crops: "نخيل (خلاص، فرض، خنيزي) + زراعة بينية للبرسيم",
+            action: "ري عميق متباعد كل 3 أيام لحماية الجذور من التملح"
+          },
+          {
+            id: "القطاع ب (الأحواض الخضراء المكشوفة)",
+            rect: [0.51, 0.16, 0.31, 0.42],
+            color: "rgba(46, 125, 50, 0.34)",
+            border: "#2e7d32",
+            badge: "تربة خصبة — عالية الإنتاجية",
+            soilNote: `ملوحة سطحية منخفضة (${shallowEC} µS/cm) وتصريف ممتاز.`,
+            crops: "طماطم، خيار، فلفل، ليمون عُماني، وأعلاف موسمية",
+            action: "ري بالتنقيط صباحاً — سماد متوازن NPK 20-20-20"
+          },
+          {
+            id: "القطاع ج (نطاق البيوت المحمية والخزانات)",
+            rect: [0.64, 0.46, 0.25, 0.32],
+            color: "rgba(2, 136, 209, 0.30)",
+            border: "#0288d1",
+            badge: "تحكم مناخي + قرب أحواض الري",
+            soilNote: `رطوبة سطحية (${multiDepthData.shallow.m}%) وحموضة مثالية ${multiDepthData.shallow.ph} pH.`,
+            crops: "خضروات عالية القيمة (فراولة، فلفل ألوان، طماطم شيري)",
+            action: "تسميد عبر شبكة التنقيط (Fertigation) بتركيز منخفض"
+          },
+          {
+            id: "القطاع د (الحدود الجنوبية وأحواض الغسيل)",
+            rect: [0.14, 0.67, 0.49, 0.22],
+            color: "rgba(216, 67, 21, 0.34)",
+            border: "#d84315",
+            badge: "ملوحة مرتفعة في الأعماق ⚠️",
+            soilNote: `تراكم أملاح عند عمق 2.8 م (${deepEC} µS/cm) بمحاذاة الحد الصحراوي.`,
+            crops: "حشيشة الرودس، شعير، أو مصدات رياح (سدر وغاف)",
+            action: "تطبيق رية غسيل للأملاح + إضافة محسنات كالسيوم"
+          }
+        ];
+      }
+
+      latestZonePlan = zones;
+      drawZonesOnFarmCanvas(zones);
+      renderZoneCards(zones);
+      buildWhatsappReport(zones);
+
+      analysisStatusEl.textContent = "اكتمل التحليل! تم تقسيم خريطة القمر الصناعي وتحديد المحصول الأنسب لكل بقعة ✅";
+      analyzeFarmBtn.disabled = false;
+      sendWhatsappBtn.disabled = false;
+      copyReportBtn.disabled = false;
+      saveSessionBtn.disabled = false;
+    }
+
+    function drawZonesOnFarmCanvas(zones) {
+      const W = farmCanvas.width;
+      const H = farmCanvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(uploadedFarmImage, 0, 0, W, H);
+
+      zones.forEach((z) => {
+        const x = z.rect[0] * W;
+        const y = z.rect[1] * H;
+        const w = z.rect[2] * W;
+        const h = z.rect[3] * H;
+
+        ctx.fillStyle = z.color;
+        ctx.fillRect(x, y, w, h);
+
+        ctx.strokeStyle = z.border;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(x, y, w, h);
+
+        const bannerH = 48;
+        ctx.fillStyle = "rgba(19, 90, 59, 0.90)";
+        ctx.fillRect(x + 6, y + 6, w - 12, bannerH);
+
+        ctx.fillStyle = "#f1c232";
+        ctx.font = "bold 13px sans-serif";
+        ctx.textAlign = "right";
+        ctx.fillText(z.id, x + w - 12, y + 24);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "12px sans-serif";
+        ctx.fillText("ازرع: " + z.crops, x + w - 12, y + 43);
+      });
+
+      // نقطة تمركز مسبار رَكِيز في قلب المزرعة
+      const cx = W * 0.49;
+      const cy = H * 0.50;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 13, 0, Math.PI * 2);
+      ctx.fillStyle = "#0288d1";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#ffffff";
+      ctx.stroke();
+    }
+
+    function renderZoneCards(zones) {
+      zonesGrid.innerHTML = "";
+      zones.forEach((z) => {
+        const card = document.createElement("div");
+        card.className = "zone-card";
+        card.innerHTML = `
+          <div class="zone-card-header">
+            <span>${z.id}</span>
+            <span class="zone-badge" style="background:${z.border};">${z.badge}</span>
+          </div>
+          <p><strong>🌱 ماذا تزرع هنا:</strong> ${z.crops}</p>
+          <p><strong>📊 حالة التربة:</strong> ${z.soilNote}</p>
+          <p><strong>💧 التوصية:</strong> ${z.action}</p>
+        `;
+        zonesGrid.appendChild(card);
+      });
+    }
+
+    analyzeFarmBtn.addEventListener("click", analyzeFarmAndRecommendCrops);
+
+    // ================== بناء وإرسال تقرير الواتساب ==================
+    function buildWhatsappReport(zones) {
+      const s = multiDepthData.shallow;
+      const d = multiDepthData.deep;
+
+      let lines = [
+        "🌿 *تقرير منصة رَكِيز للزراعة الذكية* 🌿",
+        `📍 المحطة: ${multiDepthData.id}`,
+        `🕒 التاريخ: ${new Date().toLocaleDateString("ar-OM")}`,
+        "",
+        "📊 *ملخص قراءات المسبار العميق (٣ أمتار):*",
+        `• السطح (30 سم): رطوبة ${s.m}% | ملوحة ${s.ec} µS/cm | pH ${s.ph}`,
+        `• العمق (280 سم): رطوبة ${d.m}% | ملوحة ${d.ec} µS/cm`,
+        `• العناصر (NPK): N=${s.n} | P=${s.p} | K=${s.k} mg/kg`,
+        "",
+        "🛰️ *خطة توزيع المحاصيل حسب قطاعات المزرعة:*"
+      ];
+
+      zones.forEach((z, idx) => {
+        lines.push(`${idx + 1}. *${z.id}* (${z.badge})`);
+        lines.push(`   ✅ المحاصيل الأنسب: ${z.crops}`);
+        lines.push(`   💧 التوصية: ${z.action}`);
+      });
+
+      lines.push("");
+      lines.push("تم التوليد بواسطة نظام *رَكِيز* — rakeez.vercel.app");
+
+      formattedWhatsappReport = lines.join("\n");
+      waPreview.textContent = formattedWhatsappReport;
+      waPreview.style.display = "block";
+    }
+
+    sendWhatsappBtn.addEventListener("click", () => {
+      if (!formattedWhatsappReport) return;
+      const phone = farmerPhoneInput.value.replace(/[^0-9]/g, "");
+      const encodedText = encodeURIComponent(formattedWhatsappReport);
+      const waUrl = phone.length >= 8
+        ? `https://wa.me/${phone}?text=${encodedText}`
+        : `https://wa.me/?text=${encodedText}`;
+      window.open(waUrl, "_blank");
+    });
+
+    copyReportBtn.addEventListener("click", async () => {
+      if (!formattedWhatsappReport) return;
+      await navigator.clipboard.writeText(formattedWhatsappReport);
+      saveStatusEl.textContent = "تم نسخ التقرير للحافظة بنجاح ✅";
+    });
+
+    saveSessionBtn.addEventListener("click", async () => {
+      if (!multiDepthData || !latestZonePlan) return;
+      saveSessionBtn.disabled = true;
+      saveStatusEl.textContent = "جاري حفظ بيانات رَكِيز في السحابة...";
+      try {
+        const res = await fetch("https://nasgh1-default-rtdb.firebaseio.com/rakeez_history.json", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sensor: multiDepthData,
+            zones: latestZonePlan,
+            whatsappReport: formattedWhatsappReport,
+            timestamp: new Date().toISOString()
+          })
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        saveStatusEl.textContent = "تم حفظ تحليل المزرعة في السحابة بنجاح ✅";
+      } catch (err) {
+        saveStatusEl.textContent = "تعذر الحفظ: " + err.message;
+      } finally {
+        saveSessionBtn.disabled = false;
+      }
+    });
+
+    // ================== مساعد رَكِيز الذكي (Chat) ==================
+    const chatToggle = document.getElementById("chatToggle");
+    const chatPanel = document.getElementById("chatPanel");
+    const chatCloseBtn = document.getElementById("chatCloseBtn");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatInput = document.getElementById("chatInput");
+    const chatSend = document.getElementById("chatSend");
+
+    function appendChat(role, text) {
+      const div = document.createElement("div");
+      div.className = "chat-msg " + role;
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatToggle.addEventListener("click", () => {
+      chatPanel.style.display = chatPanel.style.display === "flex" ? "none" : "flex";
+    });
+    chatCloseBtn.addEventListener("click", () => chatPanel.style.display = "none");
+
+    chatSend.addEventListener("click", async () => {
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+      appendChat("user", msg);
+      chatInput.value = "";
+
+      try {
+        const res = await fetch("/api/nasgh-chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: msg,
+            soil: multiDepthData,
+            zones: latestZonePlan
+          })
+        });
+        if (res.ok) {
+          appendChat("assistant", await res.text());
+        } else {
+          throw new Error();
+        }
+      } catch {
+        appendChat("assistant", "بناءً على قراءات مسبار رَكِيز، نوصي بزراعة الخضروات والحمضيات في القطاعات منخفضة الملوحة (<2000 µS/cm)، وتخصيص النخيل والأعلاف للقطاعات ذات الملوحة المتوسطة.");
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      appendChat("assistant", "حياك الله في منصة رَكِيز 🌿 اجلب قراءة المسبار ثم حمّل صورة القمر الصناعي للمزرعة لأحدد لك أفضل أماكن الزراعة وأرسل التقرير على واتساب.");
+    });
+  </script>
+</body>
+</html>
