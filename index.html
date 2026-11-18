@@ -563,27 +563,24 @@
       <div class="topbar-left">
         <div class="logo-badge">ر</div>
         <div>
-          <div class="logo-text-main">RAKEEZ رَكِيز</div>
-          <div class="logo-text-sub">رصدٌ من الأعماق (٣ م) .. وتغطيةٌ ذكية للمزرعة</div>
+          <div class="logo-text-main"> رَكِيز</div>
+          <div class="logo-text-sub">رصدٌ من الأعماق وتغطيةٌ من الفضاء</div>
         </div>
       </div>
       <div class="topbar-right">
-        <a href="dashboard.html">سجل القراءات</a>
         <a href="login.html">الحساب</a>
       </div>
     </header>
 
     <!-- 1. بطاقة قراءات مسبار رَكِيز العميق -->
     <div class="card">
-      <h1>لوحة قراءات مسبار رَكِيز</h1>
-      <div class="subtitle">رصد لحظي متعدد الأعماق (٣٠ سم – ٣ أمتار) للتربة والمياه الجوفية</div>
+      <h1>لوحة قراءات رَكِيز</h1>
+      <div class="subtitle">رصد لحظي متعدد الأعماق للتربة</div>
 
       <div id="status">الحالة: متصل بمحطة رَكِيز الميدانية (قراءة نشطة ✅)</div>
 
       <div class="btn-row">
-        <button id="connectBtn" class="btn">📡 اتصال بمسبار رَكِيز (BLE)</button>
-        <button id="simulateBtn" class="btn outline">⚡ تحديث / محاكاة قراءة حية</button>
-        <button id="disconnectBtn" class="btn secondary" disabled>قطع الاتصال</button>
+        <button id="simulateBtn" class="btn outline">⚡تحديث</button>
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
@@ -649,24 +646,20 @@
     <!-- 2. بطاقة صورة المزرعة المحمّلة مسبقاً + إظهار الصورة المحللة أسفلها عند الضغط -->
     <div class="card">
       <div class="section-title">🛰️ صورة القمر الصناعي للمزرعة والتحليل المكاني</div>
-      <div class="section-desc">
-        صورة المزرعة جاهزة ومحمّلة مسبقاً. اضغط على <strong>«تحليل المزرعة وتحديد أماكن المحاصيل»</strong> لإظهار خريطة التحليل وتوزيع المحاصيل أسفلها مباشرة.
-      </div>
+      
 
       <input type="file" id="farmImageInput" accept="image/*" style="display: none;" />
 
       <!-- الصورة الأصلية المحملة مسبقاً -->
       <div class="map-frame">
         <div class="map-frame-header">
-          <span>📸 صورة القمر الصناعي للمزرعة (قبل التحليل)</span>
-          <span class="map-frame-badge" id="farmSourceBadge">محمّلة مسبقاً — الباطنة</span>
+          <span>📸 صورة القمر الصناعي للمزرعة </span>
         </div>
         <img id="preloadedFarmImg" src="images/sample-farm.jpg" alt="صورة القمر الصناعي للمزرعة" class="farm-visual" />
       </div>
 
       <div class="btn-row" style="margin-top: 12px;">
         <button id="analyzeFarmBtn" class="btn ai" type="button">🧠 تحليل المزرعة وتحديد أماكن المحاصيل</button>
-        <button id="uploadCustomBtn" class="btn outline" type="button">📤 رفع صورة مزرعة أخرى</button>
         <button id="resetPreloadedBtn" class="btn outline" type="button" style="display: none;">🔄 العودة للمزرعة الافتراضية</button>
       </div>
 
@@ -676,8 +669,7 @@
       <div id="analyzedFarmSection" class="analyzed-section">
         <div class="map-frame" style="border-color: #1565c0;">
           <div class="map-frame-header" style="background: #1565c0;">
-            <span>🗺️ خريطة التحليل الذكي وتوزيع القطاعات (بعد دمج قراءات المسبار)</span>
-            <span class="map-frame-badge">رَكِيز GIS AI</span>
+            <span>🗺️ خريطة التحليل الذكي وتوزيع القطاعات </span>
           </div>
           <!-- الصورة الجاهزة المحللة للمزرعة الافتراضية -->
           <img id="analyzedFarmImg" src="images/analyzed-farm.jpg" alt="خريطة تحليل المزرعة" class="farm-visual" />
@@ -706,7 +698,6 @@
 
       <div class="whatsapp-box">
         <label for="farmerPhone" style="font-size: 12px; font-weight: 700; color: var(--rakeez-dark);">
-          رقم واتساب المزارع (مع رمز الدولة، مثال: 9689XXXXXXX):
         </label>
         <div class="wa-input-group">
           <input id="farmerPhone" type="tel" value="968" placeholder="96891234567" />
