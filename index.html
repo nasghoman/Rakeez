@@ -52,15 +52,26 @@
       margin-bottom: 14px;
     }
 
-    .topbar-left {
+    /* في اتجاه RTL يكون هذا العنصر في الزاوية اليمنى العليا */
+    .topbar-right-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    .brand-logo-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: #f5fff7;
+      border: 1px solid #c8e6c9;
+      padding: 3px;
     }
 
     .logo-badge {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
       background: linear-gradient(135deg, var(--rakeez-dark), var(--rakeez-green));
       color: #ffffff;
@@ -68,7 +79,7 @@
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 20px;
+      font-size: 22px;
     }
 
     .logo-text-main {
@@ -82,16 +93,16 @@
       color: #4f6f5d;
     }
 
-    .topbar-right {
+    .topbar-left-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
 
-    .topbar-right a {
+    .topbar-left-nav a {
       text-decoration: none;
       font-size: 13px;
-      padding: 7px 12px;
+      padding: 7px 14px;
       border-radius: 999px;
       border: 1px solid #c8e6c9;
       color: var(--rakeez-dark);
@@ -99,7 +110,7 @@
       transition: 0.15s;
     }
 
-    .topbar-right a:hover {
+    .topbar-left-nav a:hover {
       background: linear-gradient(135deg, var(--rakeez-green), var(--rakeez-gold));
       color: #ffffff;
       border-color: transparent;
@@ -132,7 +143,7 @@
       font-size: 16px;
       font-weight: 700;
       color: var(--rakeez-dark);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -309,12 +320,30 @@
       margin-top: 18px;
       padding-top: 16px;
       border-top: 2px dashed #a5d6a7;
-      animation: fadeSlideIn 0.35s ease;
+      animation: fadeSlideIn 0.4s ease;
     }
 
     @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* مؤشر التحميل أثناء التأخير */
+    .loading-bar-wrap {
+      display: none;
+      margin: 10px 0;
+      background: #e3f2fd;
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+      border: 1px solid #bbdefb;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1565c0, #0288d1, #4caf50);
+      transition: width 2s linear;
     }
 
     .zone-legend {
@@ -551,16 +580,23 @@
 
 <body>
   <div class="page">
-    <!-- الشريط العلوي -->
+    <!-- الشريط العلوي: الشعار في الزاوية اليمنى العليا -->
     <header class="topbar">
-      <div class="topbar-left">
-        <div class="logo-badge">ر</div>
+      <div class="topbar-right-brand">
+        <img
+          src="images/logo.png"
+          alt="شعار رَكِيز"
+          class="brand-logo-img"
+          onerror="this.style.display='none'; document.getElementById('fallbackLogoBadge').style.display='flex';"
+        />
+        <div id="fallbackLogoBadge" class="logo-badge" style="display: none;">ر</div>
         <div>
           <div class="logo-text-main">رَكِيز</div>
           <div class="logo-text-sub">رصدٌ من الأعماق وتغطيةٌ من الفضاء</div>
         </div>
       </div>
-      <div class="topbar-right">
+
+      <div class="topbar-left-nav">
         <a href="login.html">الحساب</a>
       </div>
     </header>
@@ -636,7 +672,7 @@
       </table>
     </div>
 
-    <!-- 2. بطاقة صورة المزرعة المحمّلة مسبقاً + إظهار الصورة المحللة أسفلها عند الضغط -->
+    <!-- 2. بطاقة صورة المزرعة المحمّلة مسبقاً + إظهار الصورة المحللة أسفلها بعد تأخير ثانيتين -->
     <div class="card">
       <div class="section-title">🛰️ صورة القمر الصناعي للمزرعة والتحليل المكاني</div>
 
@@ -652,17 +688,20 @@
         <button id="analyzeFarmBtn" class="btn ai" type="button">🧠 تحليل المزرعة وتحديد أماكن المحاصيل</button>
       </div>
 
+      <!-- شريط التقدم لمدة ثانيتين -->
+      <div id="loadingBarWrap" class="loading-bar-wrap">
+        <div id="loadingBarFill" class="loading-bar-fill"></div>
+      </div>
+
       <div id="analysisStatus" class="section-desc" style="font-weight: 600; color: var(--rakeez-dark);"></div>
 
-      <!-- قسم الصورة المحللة (يظهر أسفل الصورة الأصلية مباشرة عند الضغط على التحليل) -->
+      <!-- قسم الصورة المحللة (يظهر أسفل الصورة الأصلية مباشرة بعد انتهاء الثانيتين) -->
       <div id="analyzedFarmSection" class="analyzed-section">
         <div class="map-frame" style="border-color: #1565c0;">
           <div class="map-frame-header" style="background: #1565c0;">
             <span>🗺️ خريطة التحليل الذكي وتوزيع القطاعات</span>
           </div>
-          <!-- الصورة الجاهزة المحللة للمزرعة -->
           <img id="analyzedFarmImg" src="images/analyzed-farm.jpg" alt="خريطة تحليل المزرعة" class="farm-visual" />
-          <!-- كانفاس احتياطي يُستخدم تلقائياً إذا لم يُعثر على images/analyzed-farm.jpg -->
           <canvas id="analyzedFarmCanvas" class="farm-visual" style="display: none;"></canvas>
 
           <div class="zone-legend">
@@ -765,6 +804,8 @@
 
     const preloadedFarmImg = document.getElementById("preloadedFarmImg");
     const analyzeFarmBtn = document.getElementById("analyzeFarmBtn");
+    const loadingBarWrap = document.getElementById("loadingBarWrap");
+    const loadingBarFill = document.getElementById("loadingBarFill");
     const analysisStatusEl = document.getElementById("analysisStatus");
 
     const analyzedFarmSection = document.getElementById("analyzedFarmSection");
@@ -912,81 +953,96 @@
       });
     }
 
-    // ================== تحليل المزرعة وإظهار الصورة المحللة أسفلها مباشرة ==================
+    // ================== تحليل المزرعة مع تأخير 2 ثانية ==================
     function analyzeFarmAndRecommendCrops() {
       if (!multiDepthData) {
         applyNewReading({ id: "RAKEEZ-BATINAH-01" }, "قراءة نشطة");
       }
 
+      // 1. بدء حالة الانتظار وشريط التقدم لمدة ثانيتين
       analyzeFarmBtn.disabled = true;
-      analysisStatusEl.textContent = "⏳ جاري تحليل صورة القمر الصناعي ودمجها مع قراءات مسبار رَكِيز (٣ أمتار)...";
+      analyzeFarmBtn.textContent = "⏳ جاري تحليل المزرعة بالذكاء الاصطناعي...";
+      analyzedFarmSection.style.display = "none";
+      analysisStatusEl.textContent = "⏳ جاري معالجة صور الأقمار الصناعية ومطابقة قراءات مجسات رَكِيز (٣ أمتار)...";
 
-      const shallowEC = multiDepthData.shallow.ec;
-      const midEC = multiDepthData.mid.ec;
-      const deepEC = multiDepthData.deep.ec;
+      loadingBarWrap.style.display = "block";
+      loadingBarFill.style.transition = "none";
+      loadingBarFill.style.width = "0%";
+      requestAnimationFrame(() => {
+        loadingBarFill.style.transition = "width 2s linear";
+        loadingBarFill.style.width = "100%";
+      });
 
-      const zones = [
-        {
-          id: "القطاع A (مسبار ركيز #1)",
-          rect: [0.16, 0.12, 0.34, 0.54],
-          color: "rgba(249, 168, 37, 0.32)",
-          border: "#f9a825",
-          badge: "نخيل مثمر — ملوحة متوسطة",
-          soilNote: `ملوحة متوسطة (${midEC} µS/cm) عند عمق 1.2 م ورطوبة مستقرة في الجذور العميقة.`,
-          crops: "نخيل التمر (خلاص، فرض) والبرسيم",
-          action: "ري عميق متباعد كل 3 أيام لحماية الجذور من التملح"
-        },
-        {
-          id: "القطاع B (مسبار ركيز #2)",
-          rect: [0.51, 0.16, 0.31, 0.42],
-          color: "rgba(46, 125, 50, 0.34)",
-          border: "#2e7d32",
-          badge: "تربة خصبة — عالية الإنتاجية",
-          soilNote: `ملوحة سطحية منخفضة (${shallowEC} µS/cm) وتصريف ممتاز.`,
-          crops: "طماطم وبطاطس",
-          action: "ري بالتنقيط صباحاً — سماد متوازن NPK 20-20-20"
-        },
-        {
-          id: "القطاع C (مسبار ركيز #3)",
-          rect: [0.64, 0.46, 0.25, 0.32],
-          color: "rgba(2, 136, 209, 0.30)",
-          border: "#0288d1",
-          badge: "بيوت محمية — تحكم مناخي",
-          soilNote: `رطوبة سطحية (${multiDepthData.shallow.m}%) وحموضة مثالية ${multiDepthData.shallow.ph} pH.`,
-          crops: "خيار وفلفل حلو",
-          action: "تسميد عبر شبكة التنقيط (Fertigation) بتركيز منخفض"
-        },
-        {
-          id: "القطاع D (مسبار ركيز #4)",
-          rect: [0.14, 0.67, 0.49, 0.22],
-          color: "rgba(216, 67, 21, 0.34)",
-          border: "#d84315",
-          badge: "ملوحة مرتفعة في الأعماق ⚠️",
-          soilNote: `تراكم أملاح عند عمق 2.8 م (${deepEC} µS/cm) بمحاذاة الحد الصحراوي.`,
-          crops: "شعير وحشيشة الرودس",
-          action: "تطبيق رية غسيل للأملاح + إضافة محسنات كالسيوم"
-        }
-      ];
+      // 2. إظهار النتيجة بعد 2000 ملي ثانية (ثانيتين)
+      setTimeout(() => {
+        const shallowEC = multiDepthData.shallow.ec;
+        const midEC = multiDepthData.mid.ec;
+        const deepEC = multiDepthData.deep.ec;
 
-      latestZonePlan = zones;
+        const zones = [
+          {
+            id: "القطاع A (مسبار ركيز #1)",
+            rect: [0.16, 0.12, 0.34, 0.54],
+            color: "rgba(249, 168, 37, 0.32)",
+            border: "#f9a825",
+            badge: "نخيل مثمر — ملوحة متوسطة",
+            soilNote: `ملوحة متوسطة (${midEC} µS/cm) عند عمق 1.2 م ورطوبة مستقرة في الجذور العميقة.`,
+            crops: "نخيل التمر (خلاص، فرض) والبرسيم",
+            action: "ري عميق متباعد كل 3 أيام لحماية الجذور من التملح"
+          },
+          {
+            id: "القطاع B (مسبار ركيز #2)",
+            rect: [0.51, 0.16, 0.31, 0.42],
+            color: "rgba(46, 125, 50, 0.34)",
+            border: "#2e7d32",
+            badge: "تربة خصبة — عالية الإنتاجية",
+            soilNote: `ملوحة سطحية منخفضة (${shallowEC} µS/cm) وتصريف ممتاز.`,
+            crops: "طماطم وبطاطس",
+            action: "ري بالتنقيط صباحاً — سماد متوازن NPK 20-20-20"
+          },
+          {
+            id: "القطاع C (مسبار ركيز #3)",
+            rect: [0.64, 0.46, 0.25, 0.32],
+            color: "rgba(2, 136, 209, 0.30)",
+            border: "#0288d1",
+            badge: "بيوت محمية — تحكم مناخي",
+            soilNote: `رطوبة سطحية (${multiDepthData.shallow.m}%) وحموضة مثالية ${multiDepthData.shallow.ph} pH.`,
+            crops: "خيار وفلفل حلو",
+            action: "تسميد عبر شبكة التنقيط (Fertigation) بتركيز منخفض"
+          },
+          {
+            id: "القطاع D (مسبار ركيز #4)",
+            rect: [0.14, 0.67, 0.49, 0.22],
+            color: "rgba(216, 67, 21, 0.34)",
+            border: "#d84315",
+            badge: "ملوحة مرتفعة في الأعماق ⚠️",
+            soilNote: `تراكم أملاح عند عمق 2.8 م (${deepEC} µS/cm) بمحاذاة الحد الصحراوي.`,
+            crops: "شعير وحشيشة الرودس",
+            action: "تطبيق رية غسيل للأملاح + إضافة محسنات كالسيوم"
+          }
+        ];
 
-      // إظهار قسم الصورة المحللة أسفل الصورة الأصلية مباشرة
-      analyzedFarmSection.style.display = "block";
-      analyzedFarmImg.style.display = "block";
-      analyzedFarmCanvas.style.display = "none";
-      analyzedFarmImg.onerror = () => drawDynamicCanvasOverlay(preloadedFarmImg, zones);
-      analyzedFarmImg.src = "images/analyzed-farm.jpg";
+        latestZonePlan = zones;
 
-      renderZoneCards(zones);
-      buildWhatsappReport(zones);
+        loadingBarWrap.style.display = "none";
+        analyzedFarmSection.style.display = "block";
+        analyzedFarmImg.style.display = "block";
+        analyzedFarmCanvas.style.display = "none";
+        analyzedFarmImg.onerror = () => drawDynamicCanvasOverlay(preloadedFarmImg, zones);
+        analyzedFarmImg.src = "images/analyzed-farm.jpg";
 
-      analysisStatusEl.textContent = "✅ اكتمل التحليل! تظهر بالأسفل خريطة القطاعات الأربعة وخطة المحاصيل المقترحة:";
-      analyzeFarmBtn.disabled = false;
-      sendWhatsappBtn.disabled = false;
-      copyReportBtn.disabled = false;
-      saveSessionBtn.disabled = false;
+        renderZoneCards(zones);
+        buildWhatsappReport(zones);
 
-      analyzedFarmSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        analysisStatusEl.textContent = "✅ اكتمل التحليل! تظهر بالأسفل خريطة القطاعات الأربعة وخطة المحاصيل المقترحة:";
+        analyzeFarmBtn.disabled = false;
+        analyzeFarmBtn.textContent = "🧠 تحليل المزرعة وتحديد أماكن المحاصيل";
+        sendWhatsappBtn.disabled = false;
+        copyReportBtn.disabled = false;
+        saveSessionBtn.disabled = false;
+
+        analyzedFarmSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 2000);
     }
 
     function renderZoneCards(zones) {
