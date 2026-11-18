@@ -297,13 +297,6 @@
       align-items: center;
     }
 
-    .map-frame-badge {
-      background: rgba(255, 255, 255, 0.16);
-      padding: 2px 10px;
-      border-radius: 999px;
-      font-size: 11.5px;
-    }
-
     .farm-visual {
       width: 100%;
       max-height: 540px;
@@ -563,7 +556,7 @@
       <div class="topbar-left">
         <div class="logo-badge">ر</div>
         <div>
-          <div class="logo-text-main"> رَكِيز</div>
+          <div class="logo-text-main">رَكِيز</div>
           <div class="logo-text-sub">رصدٌ من الأعماق وتغطيةٌ من الفضاء</div>
         </div>
       </div>
@@ -580,7 +573,7 @@
       <div id="status">الحالة: متصل بمحطة رَكِيز الميدانية (قراءة نشطة ✅)</div>
 
       <div class="btn-row">
-        <button id="simulateBtn" class="btn outline">⚡تحديث</button>
+        <button id="simulateBtn" class="btn outline">⚡ تحديث</button>
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
@@ -646,21 +639,17 @@
     <!-- 2. بطاقة صورة المزرعة المحمّلة مسبقاً + إظهار الصورة المحللة أسفلها عند الضغط -->
     <div class="card">
       <div class="section-title">🛰️ صورة القمر الصناعي للمزرعة والتحليل المكاني</div>
-      
-
-      <input type="file" id="farmImageInput" accept="image/*" style="display: none;" />
 
       <!-- الصورة الأصلية المحملة مسبقاً -->
       <div class="map-frame">
         <div class="map-frame-header">
-          <span>📸 صورة القمر الصناعي للمزرعة </span>
+          <span>📸 صورة القمر الصناعي للمزرعة</span>
         </div>
         <img id="preloadedFarmImg" src="images/sample-farm.jpg" alt="صورة القمر الصناعي للمزرعة" class="farm-visual" />
       </div>
 
       <div class="btn-row" style="margin-top: 12px;">
         <button id="analyzeFarmBtn" class="btn ai" type="button">🧠 تحليل المزرعة وتحديد أماكن المحاصيل</button>
-        <button id="resetPreloadedBtn" class="btn outline" type="button" style="display: none;">🔄 العودة للمزرعة الافتراضية</button>
       </div>
 
       <div id="analysisStatus" class="section-desc" style="font-weight: 600; color: var(--rakeez-dark);"></div>
@@ -669,18 +658,18 @@
       <div id="analyzedFarmSection" class="analyzed-section">
         <div class="map-frame" style="border-color: #1565c0;">
           <div class="map-frame-header" style="background: #1565c0;">
-            <span>🗺️ خريطة التحليل الذكي وتوزيع القطاعات </span>
+            <span>🗺️ خريطة التحليل الذكي وتوزيع القطاعات</span>
           </div>
-          <!-- الصورة الجاهزة المحللة للمزرعة الافتراضية -->
+          <!-- الصورة الجاهزة المحللة للمزرعة -->
           <img id="analyzedFarmImg" src="images/analyzed-farm.jpg" alt="خريطة تحليل المزرعة" class="farm-visual" />
-          <!-- كانفاس احتياطي يُستخدم تلقائياً إذا رفع المستخدم صورة مخصصة من جهازه -->
+          <!-- كانفاس احتياطي يُستخدم تلقائياً إذا لم يُعثر على images/analyzed-farm.jpg -->
           <canvas id="analyzedFarmCanvas" class="farm-visual" style="display: none;"></canvas>
 
           <div class="zone-legend">
-            <span><span class="zone-dot" style="background:#f9a825;"></span>Zone A: مصفوفة النخيل والأعلاف</span>
-            <span><span class="zone-dot" style="background:#2e7d32;"></span>Zone B: الخضروات والحمضيات</span>
-            <span><span class="zone-dot" style="background:#0288d1;"></span>Zone C: البيوت المحمية</span>
-            <span><span class="zone-dot" style="background:#d84315;"></span>Zone D: نطاق الملوحة / غسيل التربة</span>
+            <span><span class="zone-dot" style="background:#f9a825;"></span>Zone A: نخيل التمر والبرسيم</span>
+            <span><span class="zone-dot" style="background:#2e7d32;"></span>Zone B: طماطم وبطاطس</span>
+            <span><span class="zone-dot" style="background:#0288d1;"></span>Zone C: خيار وفلفل حلو (بيوت محمية)</span>
+            <span><span class="zone-dot" style="background:#d84315;"></span>Zone D: شعير وحشيشة الرودس</span>
           </div>
         </div>
 
@@ -697,8 +686,6 @@
       </div>
 
       <div class="whatsapp-box">
-        <label for="farmerPhone" style="font-size: 12px; font-weight: 700; color: var(--rakeez-dark);">
-        </label>
         <div class="wa-input-group">
           <input id="farmerPhone" type="tel" value="968" placeholder="96891234567" />
           <button id="sendWhatsappBtn" class="btn whatsapp" type="button" disabled>
@@ -729,7 +716,7 @@
         <div class="chat-title">مستشار رَكِيز الزراعي</div>
         <div id="chatStatus" class="chat-status">مبني على بيانات التربة والمناخ في عُمان 🇴🇲</div>
       </div>
-      <button class="chat-close" id="chatCloseBtn">&times;</button>
+      <button class="chat-close" id="chatCloseBtn">×</button>
     </div>
     <div id="chatMessages" class="chat-messages"></div>
     <div class="chat-input-row">
@@ -759,7 +746,6 @@
     const isDemoMode = new URLSearchParams(window.location.search).get("demo") === "1";
     onAuthStateChanged(auth, (user) => {
       if (!user && !isDemoMode && location.hostname === "rakeez.vercel.app") {
-        // فعّل السطر التالي عند رفع صفحة login.html
         // window.location.href = "login.html";
       }
     });
@@ -767,30 +753,17 @@
 
   <!-- المنطق البرمجي الكامل لمنصة رَكِيز -->
   <script>
-    const SERVICE_UUID        = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-    const CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
-
-    let device = null;
-    let characteristic = null;
     let currentDepth = "shallow";
     let multiDepthData = null;
-    let isUsingDefaultSampleFarm = true;
-    let customUploadedDataUrl = null;
     let latestZonePlan = null;
     let formattedWhatsappReport = "";
 
     const statusEl = document.getElementById("status");
-    const connectBtn = document.getElementById("connectBtn");
     const simulateBtn = document.getElementById("simulateBtn");
-    const disconnectBtn = document.getElementById("disconnectBtn");
     const readingMetaEl = document.getElementById("readingMeta");
     const timeLabelEl = document.getElementById("timeLabel");
 
     const preloadedFarmImg = document.getElementById("preloadedFarmImg");
-    const farmSourceBadge = document.getElementById("farmSourceBadge");
-    const farmImageInput = document.getElementById("farmImageInput");
-    const uploadCustomBtn = document.getElementById("uploadCustomBtn");
-    const resetPreloadedBtn = document.getElementById("resetPreloadedBtn");
     const analyzeFarmBtn = document.getElementById("analyzeFarmBtn");
     const analysisStatusEl = document.getElementById("analysisStatus");
 
@@ -899,68 +872,7 @@
       setStatus("تم تحديث قراءات الأعماق الثلاثة بنجاح ✅");
     });
 
-    connectBtn.addEventListener("click", async () => {
-      if (!navigator.bluetooth) {
-        setStatus("المتصفح لا يدعم Web Bluetooth — تم تفعيل المحاكاة الحية", true);
-        return;
-      }
-      try {
-        setStatus("جاري البحث عن مسبار رَكِيز...");
-        device = await navigator.bluetooth.requestDevice({
-          filters: [{ services: [SERVICE_UUID] }],
-          optionalServices: [SERVICE_UUID]
-        });
-        const server = await device.gatt.connect();
-        const service = await server.getPrimaryService(SERVICE_UUID);
-        characteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
-        await characteristic.startNotifications();
-        characteristic.addEventListener("characteristicvaluechanged", (e) => {
-          const text = new TextDecoder("utf-8").decode(e.target.value);
-          applyNewReading(JSON.parse(text), "بلوتوث BLE");
-        });
-        setStatus("متصل بمسبار رَكِيز بنجاح ✅");
-        disconnectBtn.disabled = false;
-      } catch (err) {
-        setStatus("تعذر الاتصال: " + err.message, true);
-      }
-    });
-
-    disconnectBtn.addEventListener("click", async () => {
-      if (device && device.gatt.connected) await device.gatt.disconnect();
-      disconnectBtn.disabled = true;
-      setStatus("تم قطع الاتصال");
-    });
-
-    // ================== تبديل الصورة أو رفع صورة مخصصة ==================
-    uploadCustomBtn.addEventListener("click", () => farmImageInput.click());
-
-    farmImageInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        customUploadedDataUrl = evt.target.result;
-        preloadedFarmImg.src = customUploadedDataUrl;
-        isUsingDefaultSampleFarm = false;
-        farmSourceBadge.textContent = "صورة مرفوعة من المستخدم";
-        resetPreloadedBtn.style.display = "inline-flex";
-        analyzedFarmSection.style.display = "none";
-        analysisStatusEl.textContent = "تم تحميل صورتك ✅ اضغط على «تحليل المزرعة وتحديد أماكن المحاصيل».";
-      };
-      reader.readAsDataURL(file);
-    });
-
-    resetPreloadedBtn.addEventListener("click", () => {
-      preloadedFarmImg.src = "images/sample-farm.jpg";
-      isUsingDefaultSampleFarm = true;
-      customUploadedDataUrl = null;
-      farmSourceBadge.textContent = "محمّلة مسبقاً — الباطنة";
-      resetPreloadedBtn.style.display = "none";
-      analyzedFarmSection.style.display = "none";
-      analysisStatusEl.textContent = "";
-    });
-
-    // رسم احتياطي على الكانفاس إذا لم يتم العثور على images/analyzed-farm.jpg أو عند رفع صورة مخصصة
+    // رسم احتياطي على الكانفاس إذا لم يُعثر على images/analyzed-farm.jpg
     function drawDynamicCanvasOverlay(sourceImgElement, zones) {
       analyzedFarmImg.style.display = "none";
       analyzedFarmCanvas.style.display = "block";
@@ -998,19 +910,10 @@
         ctx.font = "12px sans-serif";
         ctx.fillText("ازرع: " + z.crops, x + w - 12, y + 41);
       });
-
-      // نقطة المسبار في المنتصف
-      ctx.beginPath();
-      ctx.arc(W * 0.49, H * 0.50, 13, 0, Math.PI * 2);
-      ctx.fillStyle = "#0288d1";
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "#ffffff";
-      ctx.stroke();
     }
 
     // ================== تحليل المزرعة وإظهار الصورة المحللة أسفلها مباشرة ==================
-    async function analyzeFarmAndRecommendCrops() {
+    function analyzeFarmAndRecommendCrops() {
       if (!multiDepthData) {
         applyNewReading({ id: "RAKEEZ-BATINAH-01" }, "قراءة نشطة");
       }
@@ -1024,43 +927,43 @@
 
       const zones = [
         {
-          id: "القطاع A (مصفوفة النخيل الكبرى)",
+          id: "القطاع A (مسبار ركيز #1)",
           rect: [0.16, 0.12, 0.34, 0.54],
           color: "rgba(249, 168, 37, 0.32)",
           border: "#f9a825",
           badge: "نخيل مثمر — ملوحة متوسطة",
           soilNote: `ملوحة متوسطة (${midEC} µS/cm) عند عمق 1.2 م ورطوبة مستقرة في الجذور العميقة.`,
-          crops: "نخيل (خلاص، فرض، خنيزي) + زراعة بينية للبرسيم",
+          crops: "نخيل التمر (خلاص، فرض) والبرسيم",
           action: "ري عميق متباعد كل 3 أيام لحماية الجذور من التملح"
         },
         {
-          id: "القطاع B (الأحواض الخضراء المكشوفة)",
+          id: "القطاع B (مسبار ركيز #2)",
           rect: [0.51, 0.16, 0.31, 0.42],
           color: "rgba(46, 125, 50, 0.34)",
           border: "#2e7d32",
           badge: "تربة خصبة — عالية الإنتاجية",
           soilNote: `ملوحة سطحية منخفضة (${shallowEC} µS/cm) وتصريف ممتاز.`,
-          crops: "طماطم، خيار، فلفل، ليمون عُماني، وأعلاف موسمية",
+          crops: "طماطم وبطاطس",
           action: "ري بالتنقيط صباحاً — سماد متوازن NPK 20-20-20"
         },
         {
-          id: "القطاع C (نطاق البيوت المحمية والخزانات)",
+          id: "القطاع C (مسبار ركيز #3)",
           rect: [0.64, 0.46, 0.25, 0.32],
           color: "rgba(2, 136, 209, 0.30)",
           border: "#0288d1",
-          badge: "تحكم مناخي + قرب أحواض الري",
+          badge: "بيوت محمية — تحكم مناخي",
           soilNote: `رطوبة سطحية (${multiDepthData.shallow.m}%) وحموضة مثالية ${multiDepthData.shallow.ph} pH.`,
-          crops: "خضروات عالية القيمة (فراولة، فلفل ألوان، طماطم شيري)",
+          crops: "خيار وفلفل حلو",
           action: "تسميد عبر شبكة التنقيط (Fertigation) بتركيز منخفض"
         },
         {
-          id: "القطاع D (الحدود الجنوبية وأحواض الغسيل)",
+          id: "القطاع D (مسبار ركيز #4)",
           rect: [0.14, 0.67, 0.49, 0.22],
           color: "rgba(216, 67, 21, 0.34)",
           border: "#d84315",
           badge: "ملوحة مرتفعة في الأعماق ⚠️",
           soilNote: `تراكم أملاح عند عمق 2.8 م (${deepEC} µS/cm) بمحاذاة الحد الصحراوي.`,
-          crops: "حشيشة الرودس، شعير، أو مصدات رياح (سدر وغاف)",
+          crops: "شعير وحشيشة الرودس",
           action: "تطبيق رية غسيل للأملاح + إضافة محسنات كالسيوم"
         }
       ];
@@ -1069,27 +972,20 @@
 
       // إظهار قسم الصورة المحللة أسفل الصورة الأصلية مباشرة
       analyzedFarmSection.style.display = "block";
-
-      if (isUsingDefaultSampleFarm) {
-        analyzedFarmImg.style.display = "block";
-        analyzedFarmCanvas.style.display = "none";
-        analyzedFarmImg.src = "images/analyzed-farm.jpg";
-        // إذا لم يكن ملف analyzed-farm.jpg مرفوعاً بعد، ارسم التحليل مباشرة على الكانفاس
-        analyzedFarmImg.onerror = () => drawDynamicCanvasOverlay(preloadedFarmImg, zones);
-      } else {
-        drawDynamicCanvasOverlay(preloadedFarmImg, zones);
-      }
+      analyzedFarmImg.style.display = "block";
+      analyzedFarmCanvas.style.display = "none";
+      analyzedFarmImg.onerror = () => drawDynamicCanvasOverlay(preloadedFarmImg, zones);
+      analyzedFarmImg.src = "images/analyzed-farm.jpg";
 
       renderZoneCards(zones);
       buildWhatsappReport(zones);
 
-      analysisStatusEl.textContent = "✅ اكتمل التحليل! تظهر بالأسفل خريطة القطاعات الملونة وخطة المحاصيل المقترحة لكل بقعة:";
+      analysisStatusEl.textContent = "✅ اكتمل التحليل! تظهر بالأسفل خريطة القطاعات الأربعة وخطة المحاصيل المقترحة:";
       analyzeFarmBtn.disabled = false;
       sendWhatsappBtn.disabled = false;
       copyReportBtn.disabled = false;
       saveSessionBtn.disabled = false;
 
-      // تمرير سلس إلى الصورة المحللة بالأسفل
       analyzedFarmSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
@@ -1228,7 +1124,7 @@
           throw new Error();
         }
       } catch {
-        appendChat("assistant", "بناءً على قراءات مسبار رَكِيز، نوصي بزراعة الخضروات والحمضيات في القطاع B منخفض الملوحة (<2000 µS/cm)، وتخصيص النخيل والأعلاف للقطاع A ذي الملوحة المتوسطة.");
+        appendChat("assistant", "بناءً على قراءات مسبار رَكِيز، نوصي بزراعة الطماطم والبطاطس في القطاع B منخفض الملوحة (<2000 µS/cm)، وتخصيص النخيل والبرسيم للقطاع A.");
       }
     });
 
